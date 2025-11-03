@@ -131,12 +131,16 @@
 <tr>
 		<td><label for="phone">Phone Number:</label></td>
     <td>
-        <input type="text" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onblur="validatePhone()" title="Please enter phone number" placeholder="123-456-7890"/>
+        <input type="text" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" onblur="validatePhone()" title="Please enter phone number" placeholder="123-456-7890">    
+        <span id="phone-error" class="error"></span>
     </td>
 </tr>
 <tr>
     <td>Email:</td>
-    <td><input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,20}$" onblur="validateEmail()"></td>
+    <td><input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,20}$" onblur="validateEmail()"><span id="email-error" class="error"></span>
+    <span id="email-error" class="error"></span>
+
+    </td>
 </tr>
 <tr>
     <td><label for="address1">Address Line 1:</label></td>
@@ -174,9 +178,9 @@
 </tr>
 <tr>
           <td>City:</td>
-          <td><input type="text" name="city" maxlength="30"></td>
-      </tr>
-    <td><label for="state">State:</label></td>
+          <td><input type="text" name="city" id="city" maxlength="30"></td>
+         <span id="city-error" class="error"></span>
+        </tr>
     <td>
         <select id="state" name="state" required onchange="validateState()">
             <option value="">-- Select a State --</option>
@@ -234,6 +238,7 @@
           <option value="PR">Puerto Rico</option>
           <option value="DC">District of Columbia</option>
         </select>  
+        <span id="state-error" class="error"></span>
     </td>
       <td><label for="zcode">Zip Code:</label></td>
         <td>
@@ -309,6 +314,7 @@
           title="Please enter a user ID:"
           placeholder="Your user ID"
         />
+         <span id="uid-error" class="error"></span> 
       </td>
 </tr>
 <tr>
@@ -318,15 +324,17 @@
         required onblur="validatePword()"
         oninput="validatePword()"
         onfocus="validatePword()" placeholder="At least 10 characters"/>
+     />
+    <span id="pword-error" class="error"></span>
     </td>
 </tr>
 <tr>
     <td><label for="con_pword">Confirm Password:</label></td>
     <td>
         <input type="password" name="con_pword" id="con_pword" minlength="10" required 
-        onblur="validateConPword()"
-        oninput="validateConPword()"
-        onfocus="validateConPword()" placeholder="At least 10 characters"/>
+        onblur="confirmPword()"
+        oninput="confirmPword()"
+        onfocus="confirmPword()" placeholder="At least 10 characters"/>
         <span class="error" id="con_pword-error"></span>
     </td>
 </tr>
