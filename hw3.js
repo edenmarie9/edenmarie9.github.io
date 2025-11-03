@@ -53,20 +53,6 @@ function validateSsn()
         return true;
     }
 }
-function validateSsn() 
-{
-    const ssn = document.getElementById("ssn").value;
-    const ssnR = /^[0-9]{3}-?[0-9]{2}-?[0-9]{4}$/;
-
-    if (!ssnR.test(ssn)) {
-        document.getElementById("ssn-error").innerHTML = 
-        "Please enter a valid SSN";
-        return false;
-    } else {
-        document.getElementById("ssn-error").innerHTML = "";
-        return true;
-    }
-}
 function validateZcode() 
 {
     const zipInput = document.getElementById("zcode");
@@ -188,18 +174,17 @@ function validatePword()
     document.getElementById("pword-error").innerHTML = "";
     return true;
 }
-function confirmPword() 
-{
-    pword1 = document.getElementById("pword").value;
-    pword2 = document.getElementById("con_pword").value;
+function confirmPword() {
+    const pword1 = document.getElementById("pword").value;
+    const pword2 = document.getElementById("con_pword").value;
 
     if (pword1 !== pword2) {
-        document.getElementById("pword2-error").innerHTML = 
+        document.getElementById("con_pword-error").innerHTML = 
         "Passwords don't match";
         return false;
     } else {
-        document.getElementById("pword2-error").innerHTML = 
-        "Passwords match";
+        document.getElementById("con_pword-error").innerHTML = 
+        "";
         return true;
     }
 }
@@ -260,6 +245,9 @@ function validateEverything() {
     if (!validateAddress1()) {
         valid = false;
     }
+    if (!validateState()) {
+        valid = false;
+    }
     if (!validateCity()) {
         valid = false;
     }
@@ -281,13 +269,15 @@ function validateEverything() {
     if (!confirmPword()) {
         valid = false;
     }
-     if (valid) {
-         document.getElementById("submit").disabled = false;
-     } else{
-        showAlert();
-     }
- }
- function validateCity() {
+    if (valid) {
+        document.getElementById("submit").style.display = "inline";  
+        alert("All fields are valid! You may now submit.");
+    } else {
+        document.getElementById("submit").style.display = "none";  
+        alert("Please fix all errors before submitting.");
+    }
+}
+function validateCity() {
     const city = document.getElementById("city").value.trim();
 
     if (!city) {
@@ -321,15 +311,16 @@ function validateFname() {
 }
 }
 function validateMini() {
-    const mini = document.getElementById("mini").value;
+    let mini = document.getElementById("mini").value;
     var namePattern = /^[A-Z]+$/;
 
     mini = mini.toUpperCase();
     document.getElementById("mini").value = mini;
 
+
     if (!mini.match(namePattern)) {
         document.getElementById("mini-error").innerHTML = 
-        "Middle initial must be a single uppercase letter";
+        "Middle initial must be an uppercase letter";
         return false;
     } else {
         document.getElementById("mini-error").innerHTML = "";
@@ -357,4 +348,41 @@ function validateLname() {
         return true;
     }
 }
+}
+function validateAddress1() {
+    const addr1 = document.getElementById("address1").value.trim();
+    
+    if (!addr1) {
+        document.getElementById("address1-error").innerHTML = "Address can't be blank";
+        return false;
+    } else if (addr1.length < 2 || addr1.length > 30) {
+        document.getElementById("address1-error").innerHTML = "Address must be 2-30 characters";
+        return false;
+    } else {
+        document.getElementById("address1-error").innerHTML = "";
+        return true;
+    }
+}
+
+function validateAddress2() {
+    const addr2 = document.getElementById("address2").value.trim();
+    
+    if (addr2 !== "" && (addr2.length < 2 || addr2.length > 30)) {
+        document.getElementById("address2-error").innerHTML = "If entered, must be 2-30 characters";
+        return false;
+    } else {
+        document.getElementById("address2-error").innerHTML = "";
+        return true;
+    }
+}
+function validateState() {
+    const state = document.getElementById("state").value;
+
+    if (!state) {
+        document.getElementById("state-error").innerHTML = "Please select a state";
+        return false;
+    } else {
+        document.getElementById("state-error").innerHTML = "";
+        return true;
+    }
 }
